@@ -44,6 +44,10 @@ public class Game {
     return length;
   }
 
+  public int getGuessCount() {
+    return guesses.size();
+  }
+
   public Guess guess(String text) {
     if (text.length() != length) {
       throw new IllegalArgumentException(String.format(
