@@ -9,10 +9,20 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ *
+ */
 public class Code {
 
   private final char[] secret;
 
+  /**
+   * Generates a secret code using pool and length
+   *
+   * @param pool letter representation of each color
+   * @param length the length of the secret code
+   * @param rng random number
+   */
   public Code(String pool, int length, Random rng) {
     secret = new char[length];
     for (int i = 0; i < secret.length; i++) {
@@ -25,6 +35,9 @@ public class Code {
     return new String(secret);
   }
 
+  /**
+   *
+   */
   public class Guess {
 
     private static final String STRING_FORMAT = "{text: \"%s\", correct: %d, close: %d}";
@@ -33,6 +46,12 @@ public class Code {
     private final int correct;
     private final int close;
 
+    /**
+     * Initializes this instace by computing the number of characters in the {@code text} that
+     * also in the {@link Code}
+     * Outputs the users guess, the number of correct guesses and the number of close guesses
+     * @param text
+     */
     public Guess(String text) {
       this.text = text;
       int correct = 0;
@@ -85,14 +104,24 @@ public class Code {
       return String.format(STRING_FORMAT, text, correct, close);
     }
 
+    /**
+     * Returns the text of this instance.
+     *
+     */
     public String getText() {
       return text;
     }
 
+    /**
+     * Returns the number of correct guesses.
+     */
     public int getCorrect() {
       return correct;
     }
 
+    /**
+     * Returns the number of guesses that are correct color but wrong position
+     */
     public int getClose() {
       return close;
     }
