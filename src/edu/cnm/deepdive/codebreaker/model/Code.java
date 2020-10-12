@@ -10,18 +10,20 @@ import java.util.Random;
 import java.util.Set;
 
 /**
- *
+ * Encapsulates a randomly generated secret code. This class also includes the inner {@code Guess}
+ * class.
  */
 public class Code {
 
   private final char[] secret;
 
   /**
-   * Generates a secret code using pool and length
+   * Initializes this instance by generating a ramdom {@link String} of length {@code length} with
+   * characters taken from {@code pool}. A source of randomness must be provided in {@code rng}.
    *
-   * @param pool letter representation of each color
-   * @param length the length of the secret code
-   * @param rng random number
+   * @param pool Characters allowed in secret code that represent a color.
+   * @param length Number of characters in the secret code,
+   * @param rng Random number generator.
    */
   public Code(String pool, int length, Random rng) {
     secret = new char[length];
@@ -36,7 +38,7 @@ public class Code {
   }
 
   /**
-   *
+   * A single attempt to guess a {@link Code}.
    */
   public class Guess {
 
@@ -47,10 +49,11 @@ public class Code {
     private final int close;
 
     /**
-     * Initializes this instace by computing the number of characters in the {@code text} that
-     * also in the {@link Code}
-     * Outputs the users guess, the number of correct guesses and the number of close guesses
-     * @param text
+     * Initializes this instance by computing the number of characters in the {@code text} that
+     * are in the same position in the {@link Code}, as well as the number of additional matching
+     * characters that are not in the same position.
+     *
+     * @param text Guess content.
      */
     public Guess(String text) {
       this.text = text;
@@ -105,22 +108,24 @@ public class Code {
     }
 
     /**
-     * Returns the text of this instance.
-     *
+     * Returns the text of the guess.
      */
     public String getText() {
       return text;
     }
 
     /**
-     * Returns the number of correct guesses.
+     * Returns the number of characters in the guess that are in the secret code and are in the
+     * same position in both.
      */
     public int getCorrect() {
       return correct;
     }
 
     /**
-     * Returns the number of guesses that are correct color but wrong position
+     * Returns the number of characters in the guess that are in the code but which are not in the
+     * same position in both. Any character already matched in the code by {@link #getCorrect()}
+     * are not included in this result.
      */
     public int getClose() {
       return close;

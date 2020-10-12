@@ -6,6 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Initiates a game to guess a randomly generated secret code.
+ */
 public class Game {
 
   private static final String GOOD_CHARACTER_PATTERN_FORMAT = "[%s]";
@@ -20,6 +23,13 @@ public class Game {
   private final int length;
   private final String goodCharacterPattern;
 
+  /**
+   * Generates a secret code.
+   *
+   * @param pool Characters allowed for secret code.
+   * @param length Number of characters in the secret code.
+   * @param rng Source of randomness.
+   */
   public Game(String pool, int length, Random rng) {
     code = new Code(pool, length, rng);
     guesses = new LinkedList<>();
@@ -28,26 +38,50 @@ public class Game {
     goodCharacterPattern = String.format(GOOD_CHARACTER_PATTERN_FORMAT, pool);
   }
 
+  /**
+   *
+   * @return
+   */
   public Code getCode() {
     return code;
   }
 
+  /**
+   * Returns list of guesses.
+   */
   public List<Guess> getGuesses() {
     return Collections.unmodifiableList(guesses);
   }
 
+  /**
+   * Returns pool of characters allowed.
+   */
   public String getPool() {
     return pool;
   }
 
+  /**
+   * Returns number of characters in secret code.
+   */
   public int getLength() {
     return length;
   }
 
+  /**
+   * Returns number of times user has guessed secret code.
+   */
   public int getGuessCount() {
     return guesses.size();
   }
 
+  /**
+   * Catches exceptions for correct length of guess and use of allowed characters.
+   *
+   * @param text The text the user inputs for their guess.
+   * @return
+   * @throws IllegalGuessLengthException
+   * @throws IllegalGuessCharacterException
+   */
   public Guess guess(String text)
       throws IllegalGuessLengthException, IllegalGuessCharacterException{
     if (text.length() != length) {
@@ -64,6 +98,9 @@ public class Game {
     return guess;
   }
 
+  /**
+   * Restarts current game with the same secret code.
+   */
   public void restart() {
     guesses.clear();
   }
